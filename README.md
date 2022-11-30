@@ -1,3 +1,10 @@
+# *** IMPORTANT NOTE ***
+This code snippet is from a great book called "Data Structures for Game Programmers" by Ron Penton. 
+I would definitely recommend any programmer who wants to learn about algorithms and data structures to read this book.
+
+I have added some code for my own learning experience. The below explanation details what I have learned.
+The book does add some explanations but to help better understand concepts I have provided some of my own diagrams.
+
 # Depth First Search Test
 
 This project demonstrates the use of the graph type algorithm Depth First-Search. It uses the following data structures: 
