@@ -37,11 +37,9 @@ Some functions have been omitted as they should be self explanatory.
 | `Datatype* m_array`.           |       
 |                                |
 
-| Declared Example                         |
-| ---------------------------------------- |
-| ```c++                                   |
-| Array2D<int> g_map( ROOMS, DIRECTIONS ); |
-| ```                                      |
+| Declared Example                           |
+| ------------------------------------------ |
+| `Array2D<int> g_map( ROOMS, DIRECTIONS );` |
 
 
 ###### Construction:
@@ -57,13 +55,13 @@ Some functions have been omitted as they should be self explanatory.
 
 | Parameters            |
 | --------------------- |
-| ```c++                |
 | ( int x_p, bool y_p ) |
-| ```                   |
 
 ######Description:
 Returns the array’s index value based on it’s index location using the following expression:
+```c++
 return array[ y * width + x ];
+```
 
 Say we have a 2D array that is 2x4 (y, x): 
 | Position 0  | Position 1 | Position 2 | Position 3 |
@@ -83,14 +81,14 @@ This works due to the way arrays work in C++ i.e. 2D dynamic arrays are stored a
 | ------------------- | ------------ |
 | Bitvector           | `class` type |
 
-| Declare Example              |
-| ---------------------------- |
-| Bitvector g_marked( ROOMS ); |
+| Declare Example                |
+| ------------------------------ |
+| `Bitvector g_marked( ROOMS );` |
 
-| Members                    |
-| -------------------------- |
-| int m_size,                |
-| unsigned long int* m_array |
+| Members                      |
+| ---------------------------- |
+| `int m_size`,                |
+| `unsigned long int* m_array` |
 
 ###### Construction
 ```c++
@@ -99,33 +97,32 @@ This works due to the way arrays work in C++ i.e. 2D dynamic arrays are stored a
 
 ###### Frequently Used Functions
 
-| Function Name: 						
-| Set				
+| Function Name | Type   |
+| ------------- | ------ |
+| Set		| void   |		
 
-Parameters:
-( int index_p, bool value_p )
+| Parameters                        |
+| --------------------------------- |
+| ( `int index_p`, `bool value_p` ) |
 
-Type:
-void
 
-Description: 
+###### Description: 
 Sets a value for the bit vector’s m_array member. 
 If you wish to see a further explanation I will in more detail near the end.
 
-Name:
-operator[]
+| Function Name | Type   |
+| ------------- | ------ |
+| `operator[]`  | bool   |
 
-Parameters:
-( int index_p )
+| Parameters        |
+| ----------------- |
+| ( `int index_p` ) |
 
-Type:
-bool
-
-Description:
+###### Description:
 This access operator is used to return a value that is either 1 or 0 (i.e. true or false respectively).
 Again, if you want a detailed explanation, I will include this later on.
 
-# Data Members Visualized
+## Data Members Visualized
 Below are the main objects used in this project, the tables have a name, followed by its type.
 (Note: “?” means values have not been assigned yet):
 ...
