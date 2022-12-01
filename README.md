@@ -1,84 +1,106 @@
-# *** IMPORTANT NOTE ***
-This code snippet is from a great book called "Data Structures for Game Programmers" by Ron Penton. 
+# Introduction : Learning the Depth First Search (DFS) algorithm
+I have been reading a book called "Data Structures for Game Programmers" by Ron Penton. 
+As the title sugests, he goes over a wide range of topics and the DFS algorithm is just one of many. 
 I would definitely recommend any programmer who wants to learn about algorithms and data structures to read this book.
 
-I have added some code for my own learning experience. The below explanation details what I have learned.
-The book does add some explanations but to help better understand concepts I have provided some of my own diagrams.
+For my own learning experience I followed the book's code whilst also changing a few things here and there. 
+Further below I have added some of my own diagrams to help illustrate this complex topic. 
 
-# Depth First Search Test
+## DFS Test
+///////INSERT DMAP PICTURE HERE//////
+This project demonstrates the use of the graph type algorithm DFS and uses the following data structures: 
+- Arrays
+- Bit vectors. 
 
-This project demonstrates the use of the graph type algorithm Depth First-Search. It uses the following data structures: 
-Arrays and Bit vectors. 
+The Bitvector type uses bitwise operations as a means of marking and assessing which tiles (i.e. rooms) have been drawn or not. 
+See the below image which illustrates each room’s unique number and what directions the player can travel to in each room.
+//////INSERT NUMBERED DIR IMAGE HERE ////////
 
-For the Bit vectors, bitwise operations are utilized as a means of assessing which tiles (i.e. rooms) have been drawn or not. 
-Below image illustrates each room’s unique number and what directions the player can travel to in each room.
-
-# Data Structures & Functions Utilized
+## Data Structures & Functions Utilized
 
 Below I have listed the main data types used and their most frequently used functions. 
 Some functions have been omitted as they should be self explanatory. 
 
-# Array class
+#### Array class
 
-Data Structure Name:
-Array2D
+| Data Structure Name |
+| ------------------- |
+| `Array2D`           |
 
-Type:
-class type, template <class Datatype>
+| Type                                      |
+| ----------------------------------------- |
+| `class` type, `template <class Datatype>` |
 
-Declare Example:
-Array2D<int> g_map( ROOMS, DIRECTIONS );
+| Members                        |
+| ------------------------------ |
+| `int m_height`, `int m_width`, |
+| `Datatype* m_array`.           |       
+|                                |
 
-Members:
-int m_height, int m_width, 
-Datatype* m_array.
+| Declared Example                         |
+| ---------------------------------------- |
+| ```c++                                   |
+| Array2D<int> g_map( ROOMS, DIRECTIONS ); |
+| ```                                      |
 
-Construction:
+
+###### Construction:
+```c++
 { m_array = new Datatype[ pWidth * pHeight ]; m_width = pWidth, m_h = pH }
+```
 
-Frequently Used Functions
+######Frequently Used Functions
 
-Function Name:
-Get
+| Function Name | Type        |
+| ------------- | ----------- |
+| `Get`         | `Datatype&` |
 
-Parameters:
-( int x_p, bool y_p )
+| Parameters            |
+| --------------------- |
+| ```c++                |
+| ( int x_p, bool y_p ) |
+| ```                   |
 
-Type:
-Datatype&
-
-Description:
+######Description:
 Returns the array’s index value based on it’s index location using the following expression:
 return array[ y * width + x ];
 
 Say we have a 2D array that is 2x4 (y, x): 
+| Position 0  | Position 1 | Position 2 | Position 3 |
+| ----------- | ---------- | ---------- | ---------- |
+| Position 4  | Position 5 | Position 6 | Position 7 |
 
 and we wish to access Position 6, we would use:
+```c++
 return array[ 1 * 4 + 2 ] = 6
+```
 
 This works due to the way arrays work in C++ i.e. 2D dynamic arrays are stored as a 1D array.
 
-# Bit vector class
-Data Structure Name:
-Bitvector
+#### Bit vector class
 
-Type:
-class type
+| Data Structure Name | Type         |
+| ------------------- | ------------ |
+| Bitvector           | `class` type |
 
-Declare Example:
-Bitvector g_marked( ROOMS );
+| Declare Example              |
+| ---------------------------- |
+| Bitvector g_marked( ROOMS ); |
 
-Members:
-int m_size, 
-unsigned long int* m_array
+| Members                    |
+| -------------------------- |
+| int m_size,                |
+| unsigned long int* m_array |
 
-Construction:	
+###### Construction
+```c++
 { m_array = 0, m_size = 0, Resize( p_size ); }
+```
 
-Frequently Used Functions
+###### Frequently Used Functions
 
-Name: 						
-Set				
+| Function Name: 						
+| Set				
 
 Parameters:
 ( int index_p, bool value_p )
