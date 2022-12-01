@@ -40,7 +40,7 @@ Some functions have been omitted as they should be self explanatory.
 | `Array2D<int> g_map( ROOMS, DIRECTIONS );` |
 
 
-#### Construction:
+##### Construction:
 ```c++
 { m_array = new Datatype[ pWidth * pHeight ]; m_width = pWidth, m_h = pH }
 ```
@@ -55,7 +55,7 @@ Some functions have been omitted as they should be self explanatory.
 | ------------------------- |
 | ( `int x_p`, `bool y_p` ) |
 
-#### Description:
+##### Description:
 Returns the array’s index value based on it’s index location using the following expression:
 ```c++
 return array[ y * width + x ];
@@ -73,7 +73,7 @@ return array[ 1 * 4 + 2 ] = 6
 
 This works due to the way arrays work in C++ i.e. 2D dynamic arrays are stored as a 1D array.
 
-#### Bit vector class
+### Bit vector class
 
 | Data Structure Name   | Type         |
 | --------------------- | ------------ |
@@ -88,7 +88,7 @@ This works due to the way arrays work in C++ i.e. 2D dynamic arrays are stored a
 | `int m_size`,                |
 | `unsigned long int* m_array` |
 
-#### Construction
+##### Construction
 ```c++
 { m_array = 0, m_size = 0, Resize( p_size ); }
 ```
@@ -104,7 +104,7 @@ This works due to the way arrays work in C++ i.e. 2D dynamic arrays are stored a
 | ( `int index_p`, `bool value_p` ) |
 
 
-#### Description: 
+##### Description: 
 Sets a value for the bit vector’s m_array member. 
 If you wish to see a further explanation I will in more detail near the end.
 
@@ -116,7 +116,7 @@ If you wish to see a further explanation I will in more detail near the end.
 | ----------------- |
 | ( `int index_p` ) |
 
-#### Description:
+##### Description:
 This access operator is used to return a value that is either 1 or 0 (i.e. true or false respectively).
 Again, if you want a detailed explanation, I will include this later on.
 
@@ -238,7 +238,7 @@ For example, say we have a point of origin ( • ), it would be drawn across to 
 
 Note: The coordinate system in SDL is different to a typical coordinate system, see below:
 
-Typical coordinate system:				SDL’s coordinate system:
+Typical coordinate system (left) and SDL’s coordinate system (right):
 ```
 							•→	→	→
 ↑							↓
@@ -250,7 +250,7 @@ Typical coordinate system:				SDL’s coordinate system:
 ```
 With that explained, lefts go into detail how the tiles are drawn. 
 A direction array is used to indicate the drawing point position for the tiles. It is as follows:
-```
+```c++
 int directionArray[4][2] = 
 //     UP       RIGHT    DOWN    LEFT
 { { 0, -64 }, { 64, 0 },  { 0, 64 }, { -64, 0 } };	// Number 64 represents the tile’s dimensions in pixels.
@@ -261,24 +261,24 @@ Expression:
 x + value = new x coordinates			Expression: y + value = new y coordinates
 ```
 ```
-IF dir = 0	// UP			
-368  +                   0                           = 368			268 +             -64                           = 204  
-x      +    directionArray[direction0][0] = 368, 		y     + directionArray[direction0][1] = 204
+IF dir = 0    // i.e. UP			
+368 + 0                           = 368		268 + -64                         = 204  
+x + directionArray[direction0][0] = 368, 	y + directionArray[direction0][1] = 204
 ```
 ```
-IF dir = 1	// RIGHT
-368 	+              64                             = 432		268 +              0                                = 268 
-x 	+ directionArray[direction1][0] = 432 		y     + directionArray[direction1][1] = 268
+IF dir = 1    // i.e. RIGHT
+368 + 64                          = 432		268 + 0                           = 268 
+x + directionArray[direction1][0] = 432 	y + directionArray[direction1][1] = 268
 ```
 ```
-IF dir = 2	// DOWN
-368 +                0                            = 368			268 +                 64                          = 332 
-x     + directionArray[direction2][0] = 368 			y     + directionArray[direction2][1] = 332
+IF dir = 2    // i.e. DOWN
+368 + 0                           = 368		268 + 64                          = 332 
+x + directionArray[direction2][0] = 368 	y + directionArray[direction2][1] = 332
 ```
 ```
-IF dir = 3	// LEFT
-368 +                     -64                    = 304 		     	268 +              0                              = 268 
-x     + directionArray[direction3][0] = 304 			y     + directionArray[direction3][1] = 268
+IF dir = 3   // i.e. LEFT
+368 + -64                         = 304    	268 + 0                           = 268 
+x + directionArray[direction3][0] = 304 	y + directionArray[direction3][1] = 268
 ```
 ## Applications of the DFS Algorithm
 After studying this algorithm, I would say that this algorithm could be suited to solve various scenarios such as:
