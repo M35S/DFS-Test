@@ -7,14 +7,17 @@ For my own learning experience I followed the book's code whilst also changing a
 Further below I have added some of my own diagrams to help illustrate this complex topic. 
 
 ## DFS Test
-///////INSERT DMAP PICTURE HERE//////
+
+![dMap.png](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/dMap.png)
+
 This project demonstrates the use of the graph type algorithm DFS and uses the following data structures: 
 - Arrays
 - Bit vectors. 
 
 The Bitvector type uses bitwise operations as a means of marking and assessing which tiles (i.e. rooms) have been drawn or not. 
 See the below image which illustrates each room’s unique number and what directions the player can travel to in each room.
-//////INSERT NUMBERED DIR IMAGE HERE ////////
+
+![dMapNumbered.png](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/dMapNumbered.png)
 
 ## Data Structures & Functions Utilized
 
@@ -47,7 +50,7 @@ Some functions have been omitted as they should be self explanatory.
 { m_array = new Datatype[ pWidth * pHeight ]; m_width = pWidth, m_h = pH }
 ```
 
-######Frequently Used Functions
+###### Frequently Used Functions
 
 | Function Name | Type        |
 | ------------- | ----------- |
@@ -57,7 +60,7 @@ Some functions have been omitted as they should be self explanatory.
 | --------------------- |
 | ( int x_p, bool y_p ) |
 
-######Description:
+###### Description:
 Returns the array’s index value based on it’s index location using the following expression:
 ```c++
 return array[ y * width + x ];
@@ -125,36 +128,76 @@ Again, if you want a detailed explanation, I will include this later on.
 ## Data Members Visualized
 Below are the main objects used in this project, the tables have a name, followed by its type.
 (Note: “?” means values have not been assigned yet):
-...
+
+![map_g_Unassigned.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/map_g_Unassigned.PNG)
+
+![marked_g_Unassigned.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/marked_g_Unassigned.PNG)
+
+![tile_g_Pic.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/tile_g_Pic.PNG)
+
+![player_g_Pic.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/player_g_Pic.PNG)
+
+![window_g_Pic.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/window_g_Pic.PNG)
 
 # Array and Bitvector assignment
 We have discussed the main objects, now we need to assign values to objects “map_g” and “marked_g”.
 During the InitializeMap(map_g) method, all index values are set to -1 first, then the room exits are assigned:
-..
-Once these values are set they are not changed again. This may look confusing at first but we will break this down to understand what is going on. To clarify, the array’s indexes are ordered this way:
-..
+
+![map_g_Assigned.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/map_g_Assigned.PNG)
+
+Once these values are set they are not changed again. This may look confusing at first but we will break this down to understand what is going on. 
+To clarify, the array’s indexes are ordered this way:
+
+![map_g_IndexPositions.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/map_g_IndexPositions.PNG)
+
 Say we want position 20 (which is value 5), to set this value it would look like the below code:
 map_g.Get( 4, 1 ) = 5		{ return m_array[ 1 * 16 + 4];		 // this is position 20
 
 After Bitvector’s ClearAll() method all values in the marked_g’s member are assigned to 0:
-...
+
+![marked_g_Assigned.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/marked_g_Assigned.PNG)
+
 This method is called during the event loop & just before the DrawMap(...) method, which is where the main DFS algorithm is used.
 
 # Array - Room Assignment
 Below is a visualization of a 16 x 4 array where the Rooms are linked to other rooms going by their direction.
 Note: # signifies -1.
-...
-...
-An example of what it looks like visually. 
+
+![map_g_Table.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/map_g_Table.PNG)
+
+An example of what it looks like visually.
+
+![dMapArrayNumbered.png](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/dMapArrayNumbered.png)
 
 # Depth First Search Process Breakdown
 The DFS algorithm is a recursive process where if it does call itself again, that means to say it will visit a node. 
 In our case, the node == room. DFS will categorize nodes as either Visited (true) or Not Visited (false) 
 
 This algorithm mark’s each vertex / path as visited and avoids repeating cycles. Let's look at the algorithm:
-..
-Below are the abbreviations and my own explanation of the algorithm:
+
+```
+init()
+	for each u E G
+		u.visited = false
+	for each u E G
+		DFS( G, u )
+
+DFS( G, u )
+	u.visited = true
+	for each v E G.Adj[u]
+		if v.visited == false
+			DFS( G, v )
+```
+
+Below are the abbreviations: 
 G = Graph		u = node		v = vertex		E = Sigma (i.e. sum)
+
+And my own explanation of the algorithm:
+init ()
+     for each node element part of the Graph		// Starting from node 1 to n..
+	current node visited = false			// Set current node to false
+     for each node part of the Graph			// Loop through all nodes
+	Begin the DFS( Graph, node)
 
 DFS( Graph, node )
      current node visited = true;			    // mark the node as visited.
@@ -162,26 +205,28 @@ DFS( Graph, node )
 	if vertex visited == false		               // i.e. the path to the current node has not been visited
 			DFS( Graph, vertex )		   // Visit the node.
 
-init ()
-     for each node element part of the Graph		// Starting from node 1 to n..
-	current node visited = false			// Set current node to false
-     for each node part of the Graph			// Loop through all nodes
-	Begin the DFS( Graph, node)
 
 In this project, the algorithm is slightly modified but it largely the same:
-➊DrawMap()
+DrawMap()
        DrawTile()					// Draw the room
        marked.SetBitValue()				// Mark current room as visited
-       ⟳FOR (Direction=0; Dir < 4; Dir++) 		// Loop through the directions pointing to other rooms
-       ⤷        RoomNum = GetRoomNum()			// Get the next room according to current direction
-                 �IF (RoomNum != -1)				// If the room pointed to by the direction exists
-                 ⤷          �IF (marked.BitValue == false)		// If this room has not been visited
-                             ⤷        ➊DrawMap()			// Enter this room
+       FOR (Direction=0; Dir < 4; Dir++) 		// Loop through the directions pointing to other rooms
+               RoomNum = GetRoomNum()			// Get the next room according to current direction
+                    IF (RoomNum != -1)				// If the room pointed to by the direction exists
+                           IF (marked.BitValue == false)	// If this room has not been visited
+                                     DrawMap()			// Enter this room
                              
 # DFS Traversal Process
 We’ve discussed the algorithm in detail, now we will go over how it draws the rooms. 
 The current drawn room (R) in the current drawn phase (draw) will be coloured yellow.
-...
+
+![drawPhase1.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/drawPhase1.PNG)
+![drawPhase2.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/drawPhase2.PNG)
+![drawPhase3.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/drawPhase3.PNG)
+![drawPhase4.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/drawPhase4.PNG)
+![drawPhase5.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/drawPhase5.PNG)
+![drawPhase6.PNG](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/drawPhase6.PNG)
+
 As you may have gathered from the traversal pattern, during the DFS draw phase we go  Up, Right, Down and Left. 
 I will explain this in detail shortly.
 
@@ -189,13 +234,8 @@ I will explain this in detail shortly.
 Before we discuss the traversal pattern, I want to point something out in SDL. 
 When a sprite is blitted onto the screen, it goes by the width and height of the sprite. 
 For example, say we have a point of origin ( • ), it would be drawn across to the left and downward like so:
- •  ▸  ▸  ▸  ▸  ▶| x
- ▾		           |
- ▾		           |
- ▾		           |		A sprite of y and x dimensions
- ▾		           |
-▼_  _  __  _  _ _•
-y
+
+![spriteXYdim.png](https://github.com/M35S/DFS-Test/blob/main/DFS%20GitHub%20Images/spriteXYdim.png)
 
 
 Note: The coordinate system in SDL is different to a typical coordinate system, see below:
